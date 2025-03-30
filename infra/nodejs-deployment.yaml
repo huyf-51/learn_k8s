@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: nodejs-deployment
+    namespace: ingress-nginx
+    labels:
+        app: nodejs
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: nodejs
+    template:
+        metadata:
+            labels:
+                app: nodejs
+        spec:
+            containers:
+                - name: nodejs
+                  image: huyfst/nodejs
+                  ports:
+                      - containerPort: 3000
+                  env:
+                      - name: TOKEN
+                        valueFrom:
+                            secretKeyRef:
+                                key: token
+                                name: jwt-token
+            imagePullSecrets:
+                - name: regcred

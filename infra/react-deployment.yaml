@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: react-deployment
+    namespace: ingress-nginx
+    labels:
+        app: react
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: react
+    template:
+        metadata:
+            labels:
+                app: react
+        spec:
+            containers:
+                - name: react
+                  image: huyfst/react
+                  ports:
+                      - containerPort: 5173
