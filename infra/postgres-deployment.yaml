@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: nodejs-deployment
+    name: postgres-deployment
     namespace: ingress-nginx
     labels:
-        app: nodejs
+        app: postgres
 spec:
-    replicas: 3
+    replicas: 1
     selector:
         matchLabels:
-            app: nodejs
+            app: postgres
     template:
         metadata:
             labels:
-                app: nodejs
+                app: postgres
         spec:
             containers:
-                - name: nodejs
-                  image: huyfst/nodejs
+                - name: postgres
+                  image: postgres
                   ports:
-                      - containerPort: 3000
+                      - containerPort: 5432
                   env:
                       - name: POSTGRES_PASSWORD
                         valueFrom:
@@ -36,15 +36,8 @@ spec:
                             secretKeyRef:
                                 key: POSTGRES_DB
                                 name: postgres-secret
-                      - name: POSTGRES_HOST
-                        valueFrom:
-                            secretKeyRef:
-                                key: POSTGRES_HOST
-                                name: postgres-secret
-                      - name: POSTGRES_PORT
-                        valueFrom:
-                            secretKeyRef:
-                                key: POSTGRES_PORT
-                                name: postgres-secret
-            imagePullSecrets:
-                - name: regcred
+                #   command:
+                #       [
+                #           "psql -U huyfst -d k8s -c 'CREATE TABLE k8s (name text);'",
+                #           "psql -U huyfst -d k8s -c "INSERT INTO k8s (name) VALUES ('hello huy');"",
+                #       ]

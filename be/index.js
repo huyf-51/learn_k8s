@@ -1,10 +1,12 @@
 const express = require('express');
 require('dotenv');
-
+const { connectDB, client } = require('./db');
 const app = express();
+connectDB();
 
-app.get('/api', (req, res) => {
-    res.json(process.env.TOKEN);
+app.get('/data', async (req, res) => {
+    const result = await client.query('select * from k8s');
+    res.json(result.rows[0].name);
 });
 
 app.listen(3000, () => {

@@ -15,7 +15,7 @@ spec:
                             name: react-service
                             port:
                                 number: 5173
-                  - path: /api
+                  - path: /data
                     pathType: Prefix
                     backend:
                         service:
