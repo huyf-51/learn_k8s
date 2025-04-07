@@ -14,6 +14,7 @@ spec:
         metadata:
             labels:
                 app: postgres
+                role: db
         spec:
             containers:
                 - name: postgres
@@ -36,6 +37,13 @@ spec:
                             secretKeyRef:
                                 key: POSTGRES_DB
                                 name: postgres-secret
+                  resources:
+                      limits:
+                          cpu: 15m
+                          memory: 100Mi
+                      requests:
+                          cpu: 5m
+                          memory: 50Mi
                 #   command:
                 #       [
                 #           "psql -U huyfst -d k8s -c 'CREATE TABLE k8s (name text);'",

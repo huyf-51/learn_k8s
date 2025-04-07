@@ -14,9 +14,17 @@ spec:
         metadata:
             labels:
                 app: react
+                # role: frontend
         spec:
             containers:
                 - name: react
                   image: huyfst/react
                   ports:
                       - containerPort: 5173
+                  resources:
+                      limits:
+                          cpu: 15m
+                          memory: 100Mi
+                      requests:
+                          cpu: 5m
+                          memory: 50Mi
