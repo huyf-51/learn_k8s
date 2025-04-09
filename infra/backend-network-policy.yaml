@@ -1,19 +1,21 @@
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-    name: backend-network-policy
-    namespace: ingress-nginx
-spec:
-    podSelector:
-        matchLabels:
-            role: backend
-    policyTypes:
-        - Ingress
-    ingress:
-        - from:
-              - podSelector:
-                    matchLabels:
-                        role: frontend
-          ports:
-              - protocol: TCP
-                port: 3000
+# If apply this yaml file frontend cannot call to backend because backend is called by ingress
+
+# apiVersion: networking.k8s.io/v1
+# kind: NetworkPolicy
+# metadata:
+#     name: backend-network-policy
+#     namespace: ingress-nginx
+# spec:
+#     podSelector:
+#         matchLabels:
+#             role: backend
+#     policyTypes:
+#         - Ingress
+#     ingress:
+#         - from:
+#               - podSelector:
+#                     matchLabels:
+#                         role: frontend
+#           ports:
+#               - protocol: TCP
+#                 port: 3000

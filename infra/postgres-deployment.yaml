@@ -16,11 +16,18 @@ spec:
                 app: postgres
                 role: db
         spec:
+            volumes:
+                - name: persistent
+                  persistentVolumeClaim:
+                      claimName: pvc1
             containers:
                 - name: postgres
                   image: postgres
                   ports:
                       - containerPort: 5432
+                  volumeMounts:
+                      - mountPath: /var/lib/postgresql/data
+                        name: persistent
                   env:
                       - name: POSTGRES_PASSWORD
                         valueFrom:
@@ -46,6 +53,6 @@ spec:
                           memory: 50Mi
                 #   command:
                 #       [
-                #           "psql -U huyfst -d k8s -c 'CREATE TABLE k8s (name text);'",
-                #           "psql -U huyfst -d k8s -c "INSERT INTO k8s (name) VALUES ('hello huy');"",
+                #           "psql -U myuser -d mydatabase -c 'CREATE TABLE k8s (name text);'",
+                #           "psql -U myuser -d mydatabase -c "INSERT INTO k8s (name) VALUES ('hello huy');"",
                 #       ]

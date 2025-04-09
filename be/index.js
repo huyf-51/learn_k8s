@@ -6,6 +6,7 @@ connectDB();
 
 app.get('/data', async (req, res) => {
     const result = await client.query('select * from k8s');
+    // result.rows[0].name
     res.json(result.rows[0].name);
 });
 
