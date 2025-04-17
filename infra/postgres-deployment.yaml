@@ -19,7 +19,7 @@ spec:
             volumes:
                 - name: persistent
                   persistentVolumeClaim:
-                      claimName: pvc1
+                      claimName: pvc2
             containers:
                 - name: postgres
                   image: postgres
